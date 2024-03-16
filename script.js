@@ -1,21 +1,47 @@
-console.log("Hello World");
 
 const form = document.querySelector("form");
+
+function addDeleteToButton (bttn) {
+    bttn.addEventListener("click", event => {
+        event.target.parentNode.remove();
+    })
+}
+
+const buttons = document.querySelectorAll(".to-dos__delete-button");
+
+for (const button of buttons) {
+    addDeleteToButton(button);
+}
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const title = event.target.title.value;
-  const author = event.target.author.value;
+  const todoText = form.toDo.value;
+  const todoLi = document.createElement("li");
+  todoLi.innerText = todoText;
+  const button = document.createElement("button");
+  todoLi.appendChild(button);
+  document.querySelector("ul").appendChild(todoLi);
 
-  const ul = document.querySelector("ul");
-  const li = document.createElement("li");
+  strikeThru(todoLi);
 
-  li.innerHTML = `<span>${checkedGenre}</span>${title} by ${author}
-  <button>Finished</button>`;
 
-  const bookButton = li.querySelector("button");
-  removeBook(li);
-  ul.append(li);
+
+  todoLi.classList.add("to-dos__list-item");
+  button.classList.add("to-dos__delete-button");
+  button.innerText = "Delete";
+  addDeleteToButton(button);
 
   form.reset();
+
 });
+
+const items = document.querySelectorAll("li");
+function strikeThru (li) {
+    li.addEventListener("click", (event) => {
+        event.target.classList.toggle("strike-thru");
+    })
+}
+for (let item of items) {
+    strikeThru(item)
+}

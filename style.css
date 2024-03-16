@@ -70,3 +70,7 @@ main {
 .to-dos__heading {
   color: crimson;
 }
+
+.strike-thru {
+  text-decoration: line-through;
+}
